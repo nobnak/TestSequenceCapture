@@ -16,7 +16,7 @@ namespace SequenceCaptureSystem {
 
         Texture2D _tex;
         int imageCounter = 0;
-        ITextureSerializer serializer;
+        AbstractTextureSerializer serializer;
 
         void Awake() {
             _tex = new Texture2D (0, 0, TextureFormat.ARGB32, false);
@@ -56,21 +56,29 @@ namespace SequenceCaptureSystem {
             }
     	}
 
-        public interface ITextureSerializer : System.IDisposable {
-            bool Serialize (Texture2D tex);
-        }
-        public class JpegSerializer : ITextureSerializer {
-            const string FORMAT_FILE = "{0}_{{0:D5}}.jpg";
-            readonly string formatPath;
+        public abstract class AbstractTextureSerializer : System.IDisposable {
+            const string FORMAT_FILE = "{0}_{1}_{{0:D5}}.{2}";
+            protected readonly string formatPath;
 
-            public JpegSerializer(string folder) {
-                formatPath = string.Format(
-                    Path.Combine(folder, FORMAT_FILE), 
-                    SceneManager.GetActiveScene().name);
+            public AbstractTextureSerializer(string folder, string extension) {
+                formatPath = Path.Combine(folder, string.Format(FORMAT_FILE, 
+                    SceneManager.GetActiveScene().name,
+                    System.DateTime.Now.ToString("yyyyMMddHHmmss"),
+                    extension));
             }
+            public abstract bool Serialize (Texture2D tex);
+
+            #region IDisposable implementation
+            public abstract void Dispose ();
+            #endregion
+        }
+        public class JpegSerializer : AbstractTextureSerializer {
+            const string EXTENSION = "jpg";
+
+            public JpegSerializer(string folder) : base(folder, EXTENSION) {}
 
             #region TextureSerializer implementation
-            public bool Serialize (Texture2D tex) {
+            public override bool Serialize (Texture2D tex) {
                 try {
                     var path = string.Format(formatPath, Time.frameCount);
                     File.WriteAllBytes (path, tex.EncodeToJPG ());
@@ -82,21 +90,16 @@ namespace SequenceCaptureSystem {
             }
             #endregion
             #region IDisposable implementation
-            public void Dispose () { }
+            public override void Dispose () { }
             #endregion
         }
-        public class PngSerializer : ITextureSerializer {
-            const string FORMAT_FILE = "{0}_{{0:D5}}.png";
-            readonly string formatPath;
+        public class PngSerializer : AbstractTextureSerializer {
+            const string EXTENSION = "png";
 
-            public PngSerializer(string folder) {
-                formatPath = string.Format(
-                    Path.Combine(folder, FORMAT_FILE), 
-                    SceneManager.GetActiveScene().name);
-            }
+            public PngSerializer(string folder) : base(folder, EXTENSION) {}
 
             #region TextureSerializer implementation
-            public bool Serialize (Texture2D tex) {
+            public override bool Serialize (Texture2D tex) {
                 try {
                     var path = string.Format(formatPath, Time.frameCount);
                     File.WriteAllBytes (path, tex.EncodeToPNG ());
@@ -108,7 +111,7 @@ namespace SequenceCaptureSystem {
             }
             #endregion
             #region IDisposable implementation
-            public void Dispose () { }
+            public override void Dispose () { }
             #endregion
         }
     }
