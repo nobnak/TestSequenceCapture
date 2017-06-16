@@ -204,12 +204,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 580211338}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ec76f8a867da7b242a5cc993500c8054, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  saveFolder: 39
+  saveFolder: '%USERPROFILE%\Pictures'
   fps: 30
   limitImageCount: 10
   format: 0
