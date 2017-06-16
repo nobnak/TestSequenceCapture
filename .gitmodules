@@ -1,0 +1,3 @@
+[submodule "Assets/Packages/SequenceCapture"]
+	path = Assets/Packages/SequenceCapture
+	url = git@github.com:nobnak/SequenceCapture.git
