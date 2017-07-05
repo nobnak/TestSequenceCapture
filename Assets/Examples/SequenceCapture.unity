@@ -121,6 +121,7 @@ GameObject:
   - component: {fileID: 580211340}
   - component: {fileID: 580211339}
   - component: {fileID: 580211344}
+  - component: {fileID: 580211345}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -206,13 +207,30 @@ MonoBehaviour:
   m_GameObject: {fileID: 580211338}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec76f8a867da7b242a5cc993500c8054, type: 3}
+  m_Script: {fileID: 11500000, guid: f395d6bcaeac1244eb76d34baff7d56f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   saveFolder: '%USERPROFILE%\Pictures'
   fps: 30
   limitImageCount: 10
   format: 0
+  imageCounter: 0
+--- !u!114 &580211345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 580211338}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b2f2033d40b1b44ab6a705e6df293b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  saveFolder: '%USERPROFILE%\Pictures'
+  fps: 30
+  limitImageCount: 10
+  format: 0
+  imageCounter: 0
 --- !u!1 &1021587335
 GameObject:
   m_ObjectHideFlags: 0
